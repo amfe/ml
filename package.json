@@ -1,0 +1,29 @@
+{
+    "name": "ml",
+    "description": "无线前端库",
+    "version": "1.0.0",
+    "homepage": "https://github.com/amfe/ml",
+    "author": ["terrykingcha", "wintercn"],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/amfe/ml.git"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "/blob/master/LICENSE"
+        }
+    ],
+    "engines": {
+        "node": ">= 0.8.0"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "gulp": "^3.8.5",
+        "gulp-concat": "^2.2.0",
+        "gulp-cssmin": "^0.1.6",
+        "gulp-jshint": "1.6.4",
+        "gulp-uglify": "^0.3.1",
+        "gulp-util": "^2.2.19"
+    }
+}

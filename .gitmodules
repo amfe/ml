@@ -1,0 +1,30 @@
+[submodule "lib.navigation"]
+	path = lib.navigation
+	url = https://github.com/amfe/lib.navigation.git
+[submodule "ctrl.loading"]
+	path = ctrl.loading
+	url = https://github.com/amfe/ctrl.loading.git
+[submodule "ctrl.waterfall"]
+	path = ctrl.waterfall
+	url = https://github.com/amfe/ctrl.waterfall.git
+[submodule "ctrl.tabpanel"]
+	path = ctrl.tabpanel
+	url = https://github.com/amfe/ctrl.tabpanel.git
+[submodule "ctrl.tabheader"]
+	path = ctrl.tabheader
+	url = https://github.com/amfe/ctrl.tabheader.git
+[submodule "lib.scroll"]
+	path = lib.scroll
+	url = https://github.com/amfe/lib.scroll.git
+[submodule "lib.gesture"]
+	path = lib.gesture
+	url = https://github.com/amfe/lib.gesture.git
+[submodule "lib.motion"]
+	path = lib.motion
+	url = https://github.com/amfe/lib.motion.git
+[submodule "ctrl.scrollview"]
+	path = ctrl.scrollview
+	url = https://github.com/amfe/ctrl.scrollview.git
+[submodule "ctrl.slideview"]
+	path = ctrl.slideview
+	url = https://github.com/amfe/ctrl.slideview.git
