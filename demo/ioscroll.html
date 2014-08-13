@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--允许全屏-->
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="yes" name="apple-touch-fullscreen" />
+<meta content="telephone=no,email=no" name="format-detection" />
+<link href="../ml.css" rel="stylesheet" type="text/css" />
+<script src="../ml.js"></script>
+<title>ioscroll</title>
+<style>
+    html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background: #ccc;
+    }
+
+    #outerWrap {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #outerScroll {
+        width: 100%;
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        background: url(assets/bg.png) repeat 0 0;
+    }
+
+    #innerWrap {
+        width: 14.5rem;
+        margin: 0 auto;
+        margin-top: 5rem;
+        height: 18rem;
+        overflow: hidden;
+    }
+
+    #innerScroll {
+        width: 14.5rem;
+        background: url(assets/girl.jpg) repeat-y center 0;
+        background-size: contain;
+    }
+</style>
+</head>
+<body>
+<div id="outerWrap">
+    <div id="outerScroll">
+        <div id="innerWrap">
+            <div id="innerScroll"></div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    lib.scroll.outputDebugLog = true;
+
+    var outerScroll = new lib.scroll({
+        scrollElement: document.querySelector('#outerScroll'),
+        height: 30 * window.rem
+    }).init();
+
+    var innerScroll = new lib.scroll({
+        scrollElement: document.querySelector('#innerScroll'),
+        height: 21.4 * window.rem,
+        noBounce: true
+    }).init()
+</script>
+</body>
+</html>

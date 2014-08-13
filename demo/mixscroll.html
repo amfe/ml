@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" />
+<!--允许全屏-->
+<meta content="yes" name="apple-mobile-web-app-capable" />
+<meta content="yes" name="apple-touch-fullscreen" />
+<meta content="telephone=no,email=no" name="format-detection" />
+<link href="../ml.css" rel="stylesheet" type="text/css" />
+<script src="../ml.js"></script>
+<title>mixscroll</title>
+<style>
+    html, body, #wrap {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        background: #ccc;
+        font-family: ubuntu, helvetica, arial;
+    }
+
+    header {
+        width: 100%;
+        height: 2.2rem;
+        background: url(assets/header.jpg) no-repeat 0 0;
+    }
+
+    footer {
+        width: 100%;
+        height: 2.45rem;
+        background: url(assets/footer.jpg) no-repeat 0 0;
+    }
+
+    #banner {
+        width: 100%;
+        height: 6.5rem;
+        position: relative;
+    }
+
+    #banner ul {
+        position: absolute;
+        width: 100%;
+        display: -webkit-box;
+    }
+
+    .titleWrap {
+        width: 100%;
+        height: 2.75rem
+    }
+
+    .titleWrap:first-child {
+        height: 2.15rem   
+    }
+
+    .iconWrap {
+        width: 100%;
+        height: 4.45rem;
+        position: relative;
+    }
+
+    .iconWrap ul {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: -webkit-box;
+        background: #ebebeb;
+    }
+
+    .iconWrap li {
+        width: 3.65rem;
+        height: 3.65rem;
+        padding: 0.4rem 0.6rem;
+    }
+</style>
+</head>
+<body>
+<div id="wrap">
+    <header></header>
+    <div id="scroll">
+        <div id="banner"></div>
+        <div id="game"></div>
+    </div>
+    <footer></footer>
+</div>
+<script type="text/javascript">
+    var bannerWrap = document.querySelector('#banner');
+    var gameWrap = document.querySelector('#game');
+
+    var slideUl = document.createElement('ul');
+    for (var i = 1; i <= 6; i++) {
+        slideUl.innerHTML += '<li><img src="assets/banner' + i + '.jpg" /></li>';
+    }
+    
+    bannerWrap.appendChild(slideUl);
+
+    var titleWrap;
+    var iconWrap;
+    var iconUl;
+    for (var i = 1; i <= 4; i++) {
+        titleWrap = document.createElement('div');
+        titleWrap.className = 'titleWrap';
+        titleWrap.innerHTML = '<img src="assets/title' + i + '.png">';
+        iconWrap = document.createElement('div');
+        iconWrap.className = 'iconWrap';
+        iconUl = document.createElement('ul');
+        for (var j = 1; j <= 9; j++) {
+            iconUl.innerHTML += '<li><img src="assets/icon' + i + '_' + j + '.png"></li>';
+        }
+        iconWrap.appendChild(iconUl);
+
+        gameWrap.appendChild(titleWrap);
+        gameWrap.appendChild(iconWrap);
+    }
+
+
+    var pageScroll = new lib.scroll({
+        scrollElement: document.querySelector('#scroll'),
+        padding: {
+            top: 2.2 * window.rem,
+            bottom: 2.45 * window.rem
+        }
+    });
+
+    pageScroll.enablePlugin('fixed', {
+        topElement: document.querySelector('header'),
+        bottomElement: document.querySelector('footer')
+    });
+
+    pageScroll.init();
+
+</script>
+</body>
+</html>
