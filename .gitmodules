@@ -28,3 +28,6 @@
 [submodule "ctrl.slideview"]
 	path = ctrl.slideview
 	url = https://github.com/amfe/ctrl.slideview.git
+[submodule "rem"]
+	path = rem
+	url = https://github.com/amfe/rem.git

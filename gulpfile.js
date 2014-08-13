@@ -12,8 +12,8 @@ var cssmin = require('gulp-cssmin');
 
 gulp.task('build', function() {
 
-    var jsfiles = [];
-    var cssfiles = [];
+    var jsfiles = ['rem/rem.js'];
+    var cssfiles = ['rem/rem.css'];
 
     fs.readdirSync(BUILD_PATH).filter(function(dir) {
         return !!dir.match(/^lib|ctrl/);
