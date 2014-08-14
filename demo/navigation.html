@@ -35,8 +35,8 @@
 
     #toast {
         display: none;
-        height: 0.7rem;
-        line-height: 0.7rem;
+        height: 2rem;
+        line-height: 2rem;
         text-align: center;
         color: #FFF;
         background-color: rgba(0,0,0,0.6);
@@ -55,6 +55,7 @@
     // var pages = '';
     // pages += '<div class="page" data-pageno="' + i + '"><div class="scroll"></div></div>';
 
+    var map = ['a', 'b', 'c', 'd', 'e', 'f' ,'g'];
     var pageView = new ctrl.pageview(document.querySelector('#pages'));
     var navigation = new lib.navigation();
 
@@ -66,28 +67,43 @@
         imgEl.src = 'assets/page' + no + '.jpg';
     }
 
+    var toastId;
+    function showToast(text) {
+        var toastEl = document.querySelector('#toast');
+
+        if (toastId) {
+            clearTimeout(toastId);
+        }
+
+        toastEl.innerText = text;
+        toastEl.style.display = 'block';
+        toastId = setTimeout(function() {
+            toastId = 0;
+            toastEl.style.display = 'none';
+        }, 2000);
+    }
+
     for (var i = 1; i <= 7; i++) {
         (function(no) {
             pageView.definePage({
-                name: 'page_' + no,
+                name: 'page_' + map[no - 1],
                 startup: function(view) {
-                    console.log('startup');
+                    var pn = navigation.state.args.pn;
+                    var scrollEl = document.createElement('div');
+
+                    loadImg(pn, function(imgEl) {
+                        scrollEl.appendChild(imgEl);
+                        view.appendChild(scrollEl);
+
+                        new lib.scroll({
+                            scrollElement: scrollEl,
+                            noBounce: true
+                        }).init();
+                    });
                 },
 
                 show: function(view, persisted) {
-                    if (!persisted) {
-                        var scrollEl = document.createElement('div');
-
-                        loadImg(no, function(imgEl) {
-                            scrollEl.appendChild(imgEl);
-                            view.appendChild(scrollEl);
-
-                            new lib.scroll({
-                                scrollElement: scrollEl,
-                                noBounce: true
-                            }).init();
-                        });
-                    }
+                    console.log('show');
                 },
 
                 hide: function(view) {
@@ -105,10 +121,40 @@
         pageView.pop(navigation.state.name, navigation.state.args, navigation.state.id);
     }, false);
 
+    document.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+    })
+
+    document.addEventListener('horizontalflick', function(e) {
+        if (e.displacementX < 0) {
+            var pn = navigation.state.args.pn;
+            if (pn < 7) {
+                navigation.push('page_' + map[pn++], {pn: pn});
+            } else {
+                showToast('已经是最后一页了');
+                // last page
+            }
+
+        } else if (e.displacementX > 0) {
+            var pn = navigation.state.args.pn;
+            if (pn > 1) {
+                navigation.pop();
+            } else {
+                showToast('已经是第一页了');
+                // first page
+            }
+        }
+    })
+
     navigation.start({
-        defaultPath: 'page_1',
-        useHistoryState: true
+        defaultPath: 'page_a',
+        defaultArgs: {
+            pn: 1
+        },
+        useHistoryState: false
     });
+
+    showToast('左右滑动翻页')
 </script>
 </body>
 </html>
