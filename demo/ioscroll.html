@@ -27,6 +27,7 @@
 
     #outerScroll {
         width: 100%;
+        height: 100%;
         display: -webkit-box;
         -webkit-box-pack: center;
         background: url(assets/bg.png) repeat 0 0;
@@ -41,9 +42,12 @@
     }
 
     #innerScroll {
-        width: 14.5rem;
-        background: url(assets/girl.jpg) repeat-y center 0;
-        background-size: contain;
+        width: 100%;
+    }
+
+    #innerScroll img {
+        width: 100%;
+        height: 21.4rem;
     }
 </style>
 </head>
@@ -51,22 +55,20 @@
 <div id="outerWrap">
     <div id="outerScroll">
         <div id="innerWrap">
-            <div id="innerScroll"></div>
+            <div id="innerScroll"><img src="assets/girl.jpg"></div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-    lib.scroll.outputDebugLog = true;
+    //lib.scroll.outputDebugLog = true;
 
     var outerScroll = new lib.scroll({
         scrollElement: document.querySelector('#outerScroll'),
-        height: 30 * window.rem
+        height: document.querySelector('#outerWrap').getBoundingClientRect().height
     }).init();
 
     var innerScroll = new lib.scroll({
-        scrollElement: document.querySelector('#innerScroll'),
-        height: 21.4 * window.rem,
-        noBounce: true
+        scrollElement: document.querySelector('#innerScroll')
     }).init()
 </script>
 </body>

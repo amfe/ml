@@ -84,50 +84,157 @@
     <footer></footer>
 </div>
 <script type="text/javascript">
+// lib.scroll.outputDebugLog = true;
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    var scrollElement = document.querySelector('#scroll');
     var bannerWrap = document.querySelector('#banner');
     var gameWrap = document.querySelector('#game');
 
     var slideUl = document.createElement('ul');
+    slideUl.className = 'ctrl-slideview';
     for (var i = 1; i <= 6; i++) {
-        slideUl.innerHTML += '<li><img src="assets/banner' + i + '.jpg" /></li>';
+        slideUl.innerHTML += '<li class="ctrl-slideview-item"><img src="assets/banner' + i + '.jpg" /></li>';
     }
-    
     bannerWrap.appendChild(slideUl);
 
-    var titleWrap;
-    var iconWrap;
-    var iconUl;
-    for (var i = 1; i <= 4; i++) {
-        titleWrap = document.createElement('div');
-        titleWrap.className = 'titleWrap';
-        titleWrap.innerHTML = '<img src="assets/title' + i + '.png">';
-        iconWrap = document.createElement('div');
-        iconWrap.className = 'iconWrap';
-        iconUl = document.createElement('ul');
-        for (var j = 1; j <= 9; j++) {
-            iconUl.innerHTML += '<li><img src="assets/icon' + i + '_' + j + '.png"></li>';
-        }
-        iconWrap.appendChild(iconUl);
+    var bannerSlide = new ctrl.slideview(bannerWrap, {
+        direction: 'h',
+        loop: true,
+        interval: 500
+    });
+    scrollElement.insertBefore(bannerSlide.root, gameWrap);
 
-        gameWrap.appendChild(titleWrap);
-        gameWrap.appendChild(iconWrap);
+    function refreshIcons() {
+        var titleWrap;
+        var iconWrap;
+        var iconUl;
+        var iconUls = [];
+        gameWrap.innerHTML = '';
+        for (var i = 1; i <= 4; i++) {
+            titleWrap = document.createElement('div');
+            titleWrap.className = 'titleWrap';
+            titleWrap.innerHTML = '<img src="assets/title' + i + '.png">';
+            iconWrap = document.createElement('div');
+            iconWrap.className = 'iconWrap';
+            iconUl = document.createElement('ul');
+            iconUls.push(iconUl);
+            for (var j = 1; j <= 9; j++) {
+                iconUl.innerHTML += '<li><img src="assets/icon' + i + '_' + j + '.png"></li>';
+            }
+            iconWrap.appendChild(iconUl);
+
+            gameWrap.appendChild(titleWrap);
+            gameWrap.appendChild(iconWrap);
+        }
+
+        var iconScrolls = iconUls.map(function (iconUl) {
+            return new lib.scroll({
+                scrollElement: iconUl,
+                direction: 'x',
+                noBounce: true
+            }).init();;
+        })
     }
 
+    function appendIcons() {
+        var titleWrap;
+        var iconWrap;
+        var iconUl;
+        var iconUls = [];
+        for (var i = 2; i <= 4; i++) {
+            titleWrap = document.createElement('div');
+            titleWrap.className = 'titleWrap';
+            titleWrap.innerHTML = '<img src="assets/title' + i + '.png">';
+            iconWrap = document.createElement('div');
+            iconWrap.className = 'iconWrap';
+            iconUl = document.createElement('ul');
+            iconUls.push(iconUl);
+            for (var j = 1; j <= 9; j++) {
+                iconUl.innerHTML += '<li><img src="assets/icon' + i + '_' + j + '.png"></li>';
+            }
+            iconWrap.appendChild(iconUl);
+
+            gameWrap.appendChild(titleWrap);
+            gameWrap.appendChild(iconWrap);
+        }
+
+
+        var iconScrolls = iconUls.map(function (iconUl) {
+            return new lib.scroll({
+                scrollElement: iconUl,
+                direction: 'x',
+                noBounce: true
+            }).init();;
+        })
+    }
+
+    refreshIcons();
 
     var pageScroll = new lib.scroll({
-        scrollElement: document.querySelector('#scroll'),
+        scrollElement: scrollElement,
         padding: {
             top: 2.2 * window.rem,
             bottom: 2.45 * window.rem
         }
-    });
+    }).init();
 
     pageScroll.enablePlugin('fixed', {
         topElement: document.querySelector('header'),
         bottomElement: document.querySelector('footer')
     });
 
-    pageScroll.init();
+
+    // 下拉刷新
+    var refreshLoading = new ctrl.loading();
+    refreshLoading.arrowDirection = 'down';
+    refreshLoading.mode = 'draw';
+    refreshLoading.text = '下拉即可刷新...';
+
+    pageScroll.enablePlugin('refresh', {
+        element: refreshLoading.element,    
+        height: 3 * window.rem,
+        onpull: function(top) {
+            refreshLoading.per = Math.round(top/60 * 100);
+        },
+        onrefresh: function(done) {
+            var that = this;
+            refreshLoading.text = '正在刷新...';
+            refreshLoading.mode = 'spin';
+            setTimeout(function() {
+                refreshIcons();
+                done();
+                refreshLoading.text = '下拉即可刷新...';
+                refreshLoading.mode = 'draw';
+            }, 1500);
+        }
+    });
+
+    // 上拉加载更多
+    var updateLoading = new ctrl.loading();
+    updateLoading.arrowDirection = 'up';
+    updateLoading.text = '上拉加载更多...';
+    updateLoading.mode = 'draw';
+    updateLoading.per = 100;
+
+    pageScroll.enablePlugin('update', {
+        element: updateLoading.element,
+        height: 2.45 * window.rem,
+        onupdate: function(done) {
+            var that = this;
+            updateLoading.text = '正在加载...';
+            updateLoading.mode = 'spin';
+            setTimeout(function() {
+                appendIcons();
+                done();
+                updateLoading.text = '上拉加载更多...';
+                updateLoading.mode = 'draw';
+                updateLoading.per = 100;
+            }, 1500);
+        }
+    });
+});
 
 </script>
 </body>
