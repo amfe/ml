@@ -25,3 +25,6 @@
 [submodule "ctrl.scrollview"]
 	path = ctrl.scrollview
 	url = https://github.com/amfe/ctrl.scrollview.git
+[submodule "lib.flexible"]
+	path = lib.flexible
+	url = https://github.com/amfe/lib.flexible.git
