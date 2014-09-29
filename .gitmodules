@@ -28,3 +28,6 @@
 [submodule "lib.flexible"]
 	path = lib.flexible
 	url = https://github.com/amfe/lib.flexible.git
+[submodule "ctrl.pageview"]
+	path = ctrl.pageview
+	url = https://github.com/amfe/ctrl.pageview.git
