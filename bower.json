@@ -1,0 +1,34 @@
+{
+  "name": "ml",
+  "main": "ml.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/amfe/ml",
+  "authors": [
+    "terrykingcha"
+  ],
+  "description": "阿里无线前端库",
+  "keywords": [
+    "ml"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lib.navigation": "https://github.com/amfe/lib.navigation.git#master",
+    "lib.animation": "https://github.com/amfe/lib.animation.git#master",
+    "lib.flexible": "https://github.com/amfe/lib.flexible.git#master",
+    "lib.scroll": "https://github.com/amfe/lib.scroll.git#master",
+    "lib.promise": "https://github.com/amfe/lib.promise.git#master",
+    "lib.gesture": "https://github.com/amfe/lib.gesture.git#master",
+    "lib.cubicbezier": "https://github.com/amfe/lib.cubicbezier.git#master",
+    "ctrl.scrollview": "https://github.com/amfe/ctrl.scrollview.git#master",
+    "ctrl.pageview": "https://github.com/amfe/ctrl.pageview.git#master",
+    "ctrl.loading": "https://github.com/amfe/ctrl.loading.git#master",
+    "lib.motion": "https://github.com/amfe/lib.motion.git"
+  }
+}
