@@ -3306,7 +3306,7 @@ function Fixed(view) {
         });
 
         bottomFixedElement = this.bottomFixedElement = doc.createElement('div');
-        bottomFixedElement.className = 'bottom-fxied';
+        bottomFixedElement.className = 'bottom-fixed';
         bottomFixedElement.style.cssText = 'left: 0; bottom: 0; width: 100%;';
         Object.defineProperty(that, 'bottomElement', {
             get: function() {
